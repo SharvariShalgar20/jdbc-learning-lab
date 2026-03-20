@@ -50,5 +50,22 @@ public class BookDAO {
         return books;
     }
 
+    //Issue Book -> update
+    public void issueBook(int id) {
+        String sql = "UPDATE books SET available = false WHERE id = ?";
+
+        try ( Connection conn = DBConnection.getConnection();
+              PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+
+            System.out.println("Book issued!");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
