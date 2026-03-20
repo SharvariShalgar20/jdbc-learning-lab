@@ -25,4 +25,12 @@ public class Book {
     public String getAuthor() {
         return author;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
 }
