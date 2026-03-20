@@ -9,5 +9,7 @@ import java.util.List;
 
 public class BookDAO {
 
-
+    public void addBook(Book book) {
+        String sql = "INSERT INTO books (title, author) VALUES (?, ?)";
+    }
 }
