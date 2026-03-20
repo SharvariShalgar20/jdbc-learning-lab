@@ -20,7 +20,7 @@ public class BookDAO {
 
             stmt.executeUpdate();
             System.out.println("Book added!");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -43,7 +43,7 @@ public class BookDAO {
                 ));
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -62,7 +62,7 @@ public class BookDAO {
 
             System.out.println("Book issued!");
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
