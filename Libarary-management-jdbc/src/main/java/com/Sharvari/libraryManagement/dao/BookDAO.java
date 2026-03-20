@@ -16,7 +16,7 @@ public class BookDAO {
         try (Connection conn = DBConnection.getConnection();
               PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, book.getTitle());
-            stmt.setString(1, book.getAuthor());
+            stmt.setString(2, book.getAuthor());
 
             stmt.executeUpdate();
             System.out.println("Book added!");
@@ -37,7 +37,7 @@ public class BookDAO {
 
             while(rs.next()){
                 books.add(new Book(rs.getInt("id"),
-                                   rs.getString("label"),
+                                   rs.getString("title"),
                                    rs.getString("author"),
                                    rs.getBoolean("available")
                 ));
