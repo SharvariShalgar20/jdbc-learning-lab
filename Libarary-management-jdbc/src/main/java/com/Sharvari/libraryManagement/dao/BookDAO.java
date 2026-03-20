@@ -11,5 +11,16 @@ public class BookDAO {
 
     public void addBook(Book book) {
         String sql = "INSERT INTO books (title, author) VALUES (?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+              PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, book.getTitle());
+            stmt.setString(1, book.getAuthor());
+
+            stmt.executeUpdate();
+            System.out.println("Book added!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
