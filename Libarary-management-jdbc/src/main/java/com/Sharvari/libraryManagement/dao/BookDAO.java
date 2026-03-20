@@ -9,6 +9,7 @@ import java.util.List;
 
 public class BookDAO {
 
+    // add a Book
     public void addBook(Book book) {
         String sql = "INSERT INTO books (title, author) VALUES (?, ?)";
 
@@ -23,4 +24,31 @@ public class BookDAO {
             e.printStackTrace();
         }
     }
+
+    //view all books
+    public List<Book> getAllBooks() {
+        List<Book> books = new ArrayList<>();
+
+        String sql = "SELECT * FROM books";
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
+
+            while(rs.next()){
+                books.add(new Book(rs.getInt("id"),
+                                   rs.getString("label"),
+                                   rs.getString("author"),
+                                   rs.getBoolean("available")
+                ));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return books;
+    }
+
+
 }
