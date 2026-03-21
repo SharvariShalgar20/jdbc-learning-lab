@@ -1,0 +1,16 @@
+# Ignore IntelliJ build files
+out/
+
+# Ignore IntelliJ configuration
+.idea/
+*.iml
+
+# Ignore compiled class files
+*.class
+
+# Ignore Gradle build folders (if you use Gradle)
+.gradle/
+build/
+
+
+*.jar
