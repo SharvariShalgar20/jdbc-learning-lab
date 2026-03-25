@@ -61,6 +61,36 @@ public class EnrollmentDAO {
         }
     }
 
+    public void viewEnrollment() throws SQLException {
+        String sql = """
+                SELECT s.name AS Student, c.title AS Course, e.enrolled_at AS Enrolled-ON
+                FROM enrollments e
+                JOIN students s ON e.student_id = s.id
+                JOIN courses c ON e.course_id = c.id
+                ORDER BY e.enrolled_at DESC
+                """;
+
+        try (Connection conn = DBConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            System.out.println("\n--- All Enrollments ---");
+            boolean isthere = false;
+
+            while(rs.next()) {
+                isthere = true;
+                System.out.printf("Student: %-20s | Course: %-30s | At: %s%n",
+                        rs.getString("student"),
+                        rs.getString("course"),
+                        rs.getTimestamp("enrolled_at"));
+            }
+
+            if (!isthere) System.out.println("No enrollments yet.");
+        }
+
+
+    }
+
 
 
 }
