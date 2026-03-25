@@ -90,7 +90,19 @@ public class EnrollmentDAO {
     }
 
 
+    public void dropEnrollment(int student_id, int course_id) throws SQLException{
+        String sql = "DELETE FROM enrollments WHERE student_id = ?, course_id = ?";
 
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, student_id);
+            stmt.setInt(2, course_id);
+
+            int row = stmt.executeUpdate();
+            System.out.println(row > 0 ? "✅ Dropped." : "❌ Enrollment not found.");
+        }
+    }
 
 
 }
