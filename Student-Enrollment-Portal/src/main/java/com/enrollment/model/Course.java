@@ -29,4 +29,9 @@ public class Course {
     public int getMax_capacity() {
         return max_capacity;
     }
+
+    @Override
+    public String toString() {
+        return "[" + id + "] " + title + " | Credits: " + credits;
+    }
 }

@@ -42,7 +42,7 @@ public class StudentDAO {
     }
 
     public void updateStudent(int id, String newName, String newEmail) throws SQLException {
-        String sql = "UPDATE Student SET name=?, email=? WHERE id =?";
+        String sql = "UPDATE students SET name=?, email=? WHERE id =?";
 
         try ( Connection conn = DBConnection.getConnection();
               PreparedStatement stmt = conn.prepareStatement(sql)) {

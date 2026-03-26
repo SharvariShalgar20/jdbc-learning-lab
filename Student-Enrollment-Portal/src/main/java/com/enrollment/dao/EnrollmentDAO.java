@@ -14,13 +14,11 @@ public class EnrollmentDAO {
             conn = DBConnection.getConnection();
             conn.setAutoCommit(false);
 
-            String capacityCheck = """
-                    SELECT c.max_capacity, COUNT(e.id) AS enrolled
-                    FROM courses c LEFT JOIN enrollments e
-                    ON c.id = e.course.id
-                    WHERE c.id = ?
-                    GROUP BY c.max_capacity
-                    """;
+            String capacityCheck = "SELECT c.max_capacity, COUNT(e.id) AS enrolled " +
+                    "FROM courses c LEFT JOIN enrollments e " +
+                    "ON c.id = e.course_id " +
+                    "WHERE c.id = ? " +
+                    "GROUP BY c.max_capacity";
 
             try (PreparedStatement stmt = conn.prepareStatement(capacityCheck)) {
                 stmt.setInt(1, courseId);
@@ -37,7 +35,7 @@ public class EnrollmentDAO {
             }
 
             //Insert enrollemnt
-            String sql = "INSERT INTO enrollments (student_id, course_id) VALUES INTO (?, ?)";
+            String sql = "INSERT INTO enrollments (student_id, course_id) VALUES (?, ?)";
 
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, studentId);
@@ -62,13 +60,11 @@ public class EnrollmentDAO {
     }
 
     public void viewEnrollment() throws SQLException {
-        String sql = """
-                SELECT s.name AS Student, c.title AS Course, e.enrolled_at AS Enrolled-ON
-                FROM enrollments e
-                JOIN students s ON e.student_id = s.id
-                JOIN courses c ON e.course_id = c.id
-                ORDER BY e.enrolled_at DESC
-                """;
+        String sql = "SELECT s.name AS student, c.title AS course, e.enrolled_at " +
+                "FROM enrollments e " +
+                "JOIN students s ON e.student_id = s.id " +
+                "JOIN courses c ON e.course_id = c.id " +
+                "ORDER BY e.enrolled_at DESC";
 
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
@@ -91,7 +87,7 @@ public class EnrollmentDAO {
 
 
     public void dropEnrollment(int student_id, int course_id) throws SQLException{
-        String sql = "DELETE FROM enrollments WHERE student_id = ?, course_id = ?";
+        String sql = "DELETE FROM enrollments WHERE student_id = ? AND course_id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {

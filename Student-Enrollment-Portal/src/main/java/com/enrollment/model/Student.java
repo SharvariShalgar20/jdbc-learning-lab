@@ -24,4 +24,9 @@ public class Student {
         return email;
     }
 
+    @Override
+    public String toString() {
+        return "[" + id + "] " + name + " (" + email + ")";
+    }
+
 }
