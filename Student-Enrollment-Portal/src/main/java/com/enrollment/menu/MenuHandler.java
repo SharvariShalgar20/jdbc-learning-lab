@@ -3,6 +3,7 @@ package com.enrollment.menu;
 import com.enrollment.dao.CourseDAO;
 import com.enrollment.dao.EnrollmentDAO;
 import com.enrollment.dao.StudentDAO;
+import com.enrollment.model.Course;
 import com.enrollment.model.Student;
 
 import java.sql.SQLException;
@@ -103,7 +104,35 @@ public class MenuHandler {
     }
 
     public void courseMenu() throws SQLException {
+        System.out.println("""
+            --- COURSES ---
+            1. Add  2. View All""");
 
+        int c = Integer.parseInt(sc.nextLine().trim());
+
+        switch (c) {
+            case 1:
+                System.out.print("Enter course title: ");
+                String title = sc.nextLine().trim();
+                System.out.print("Enter credits: ");
+                int credits = Integer.parseInt(sc.nextLine().trim());
+                System.out.print("Enter max_capacity: ");
+                int max_cap = Integer.parseInt(sc.nextLine().trim());
+
+                courseDAO.addCourse(title, credits, max_cap);
+                break;
+
+            case 2:
+                List<Course> list = courseDAO.getAllCourses();
+
+                for(Course course : list) {
+                    System.out.println("ID: " + course.getId() + " | Name: " + course.getTitle() + " | Credits: " + course.getCredits() + " | Maximum capacity: " + course.getMax_capacity());
+                }
+                break;
+
+            default:
+                System.out.println("Invalid option.");
+        }
     }
 
     public void enrollmentMenu() throws SQLException {
