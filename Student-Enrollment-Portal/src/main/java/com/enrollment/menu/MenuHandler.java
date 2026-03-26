@@ -136,6 +136,39 @@ public class MenuHandler {
     }
 
     public void enrollmentMenu() throws SQLException {
+        System.out.println("""
+            --- ENROLLMENTS ---
+            1. Enroll Student  2. View All  3. Drop Enrollment""");
 
+        int c = Integer.parseInt(sc.nextLine().trim());
+
+        switch (c) {
+            case 1:
+                System.out.println("--- Select Student ---");
+                studentDAO.getAllStudents().forEach(System.out::println);
+                int sid = Integer.parseInt(sc.nextLine().trim());
+
+                System.out.println("--- Select Course ---");
+                courseDAO.getAllCourses().forEach(System.out::println);
+                int cid = Integer.parseInt(sc.nextLine().trim());
+
+                enrollmentDAO.enrollStudent(sid, cid);
+                break;
+
+            case 2:
+                enrollmentDAO.viewEnrollment();
+                break;
+
+            case 3:
+                System.out.print("Student ID: ");
+                int sidToDelete = Integer.parseInt(sc.nextLine());
+                System.out.print("Course ID: ");
+                int cidToDelete = Integer.parseInt(sc.nextLine());
+                enrollmentDAO.dropEnrollment(sidToDelete, cidToDelete);
+                break;
+
+            default:
+                System.out.println("Invalid option.");
+        }
     }
 }
